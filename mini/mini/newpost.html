@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .post-form textarea {
+            resize: none;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            min-height: 100px;
+        }
+
+        .post-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .post-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .post-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .post-feed {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post {
+            background-color: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .post p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .post img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .post-time {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a Post</h1>
+
+        <!-- Post Form -->
+        <div class="post-form">
+            <textarea id="postContent" placeholder="What's on your mind?"></textarea>
+            <input type="file" id="imageUpload" accept="image/*">
+            <button onclick="addPost()">Post</button>
+        </div>
+
+        <!-- Post Feed -->
+        <div class="post-feed" id="postFeed">
+            <!-- Posts will appear here -->
+        </div>
+    </div>
+
+    <script>
+        // Function to get current time in a readable format
+        function getCurrentTime() {
+            const date = new Date();
+            return date.toLocaleString();
+        }
+
+        // Function to add a new post
+        function addPost() {
+            const postContent = document.getElementById("postContent").value.trim();
+            const imageUpload = document.getElementById("imageUpload");
+            const postFeed = document.getElementById("postFeed");
+
+            if (postContent === "" && imageUpload.files.length === 0) {
+                alert("Please enter some content or upload an image before posting.");
+                return;
+            }
+
+            const postDiv = document.createElement("div");
+            postDiv.classList.add("post");
+
+            // Create the post content
+            postDiv.innerHTML = `<p>${postContent}</p>`;
+            
+            // If an image is uploaded, create an image element
+            if (imageUpload.files.length > 0) {
+                const file = imageUpload.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result; // Set the image source to the uploaded file
+                    postDiv.appendChild(img);
+                };
+
+                reader.readAsDataURL(file); // Read the uploaded image as a data URL
+            }
+
+            // Add the post time
+            const timeDiv = document.createElement("div");
+            timeDiv.classList.add("post-time");
+            timeDiv.textContent = `Posted on ${getCurrentTime()}`;
+            postDiv.appendChild(timeDiv);
+
+            // Add new post at the top
+            postFeed.prepend(postDiv);
+
+            // Clear the textarea and file input after posting
+            document.getElementById("postContent").value = "";
+            imageUpload.value = "";
+        }
+    </script>
+</body>
+</html>

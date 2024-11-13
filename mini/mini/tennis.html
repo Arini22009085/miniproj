@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENNIS</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        /* Main container for posts */
+        .feed-container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Individual post styling */
+        .post {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        /* Profile section styling */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* Post content styling */
+        .content {
+            margin-bottom: 15px;
+        }
+
+        .content img {
+            width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* Action buttons styling */
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            color: gray;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .actions span {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Comments section styling */
+        .comments {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .comment {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .comment img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        /* Comment input styling */
+        .comment-input {
+            display: flex;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .comment-input input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .comment-input button {
+            background-color: #0073b1;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* See More button styling */
+        .see-more-btn {
+            color: #0073b1;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            background: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="feed-container">
+    <!-- Post 1 -->
+    <div class="post">
+        <div class="profile">
+            <img src="images/wprofile.jpg" alt="Profile">
+            <div>
+                <strong>Ari_valli</strong>
+                <p>Tennis</p>
+            </div>
+        </div>
+        <div class="content">
+            <p>Tennis is a battle of patience, precision, and power.
+                Every swing, every serve tests your resilience.
+                <span class="more-text" style="display:none;">True champions play not just to win, but to learn.</span> 
+                <button class="see-more-btn" onclick="toggleContent(this)">See More</button>
+            </p>
+            <img src="images/tennispost1.jpg" alt="Event Image">
+        </div>
+        <div class="actions">
+            <span onclick="likePost(this)">👍 Like <span class="like-count">0</span></span>
+            <span>💬 Comment</span>
+            <span onclick="sharePost('Exciting events lined up for this weekend! Don’t miss out on the fun!')">🔗 Share</span>
+        </div>
+        <div class="comments">
+            <div class="comment">
+                <img src="images/wprofile.jpg" alt="User5">
+                <p><strong>Nithish:</strong> Looking forward to it!</p>
+            </div>
+            <div class="comment-input">
+                <input type="text" placeholder="Add a comment..." />
+                <button onclick="addComment(this)">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post">
+        <div class="profile">
+            <img src="images/mprofile.jpeg" alt="Profile">
+            <div>
+                <strong>Anandh</strong>
+                <p>Tennis</p>
+            </div>
+        </div>
+        <div class="content">
+            <p>The court is where grit meets grace, point by point.
+                Tennis is a solo fight, but every match shapes the player.
+                <span class="more-text" style="display:none;">Strength lies in bouncing back, no matter the score.</span> 
+                <button class="see-more-btn" onclick="toggleContent(this)">See More</button>
+            </p>
+            <img src="images/tennispost2.webp" alt="Event Image">
+        </div>
+        <div class="actions">
+            <span onclick="likePost(this)">👍 Like <span class="like-count">0</span></span>
+            <span>💬 Comment</span>
+            <span onclick="sharePost('Be part of a community that values fitness and sportsmanship.')">🔗 Share</span>
+        </div>
+        <div class="comments">
+            <div class="comment">
+                <img src="images/wprofile.jpg" alt="User6">
+                <p><strong>Priya:</strong> Such an inspiring event!</p>
+            </div>
+            <div class="comment-input">
+                <input type="text" placeholder="Add a comment..." />
+                <button onclick="addComment(this)">Post</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to toggle "See More" and "See Less"
+    function toggleContent(button) {
+        const moreText = button.previousElementSibling;
+        
+        if (moreText.style.display === "none") {
+            moreText.style.display = "inline";
+            button.textContent = "See Less";
+        } else {
+            moreText.style.display = "none";
+            button.textContent = "See More";
+        }
+    }
+
+    // Function to handle the Like button click
+    function likePost(element) {
+        const likeCount = element.querySelector('.like-count');
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+    }
+
+    // Function to share post content via WhatsApp
+    function sharePost(content) {
+        const encodedMessage = encodeURIComponent("Check out this post: " + content);
+        const whatsappURL = `https://wa.me/?text=${encodedMessage}`;
+        window.open(whatsappURL, "_blank");
+    }
+
+    // Function to add a new comment
+    function addComment(button) {
+        const commentInput = button.previousElementSibling;
+        const commentText = commentInput.value.trim();
+
+        if (commentText) {
+            const commentSection = button.closest('.comments');
+            
+            // Create new comment element
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.innerHTML = `
+                <img src="images/wprofile.jpg" alt="Profile">
+                <p><strong>You:</strong> ${commentText}</p>
+            `;
+
+            // Insert new comment above the input
+            commentSection.insertBefore(newComment, commentSection.querySelector('.comment-input'));
+
+            // Clear the input field
+            commentInput.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

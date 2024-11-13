@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us, Contact Us, Special Features</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text */
+            text-align: center;
+            padding: 15px 0;
+        }
+        nav {
+            background-color: #f0f0f0; /* Light grey background */
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #000000; /* Black text */
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .section {
+            background: #f9f9f9; /* Very light grey background */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            flex: 0 1 45%;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #333333; /* Dark grey text */
+        }
+        .section p {
+            color: #333333; /* Dark grey text */
+            line-height: 1.6;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form input, .contact-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #cccccc; /* Light grey border */
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .contact-form button {
+            padding: 10px;
+            background-color: #000000; /* Black background */
+            color: #ffffff; /* White text */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #333333; /* Dark grey background */
+        }
+        @media (max-width: 768px) {
+            .section {
+                flex: 0 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Website</h1>
+    </header>
+    <nav>
+        <a href="#about-us">About Us</a>
+        <a href="#contact-us">Contact Us</a>
+        <a href="#special-features">Special Features</a>
+        <a href="#privacy-policy">Privacy Policy</a>
+    </nav>
+    <div class="container">
+        <section id="contact-us" class="section">
+            <h2>Contact Us</h2>
+            <form class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+        <section id="about-us" class="section">
+            <h2>About Us</h2>
+            <p>Welcome to our website! We are dedicated to providing the best service possible. Our team works tirelessly to bring you the highest quality products and services. We believe in excellence and strive to exceed your expectations.</p>
+        </section>
+        <section id="special-features" class="section" style="flex: 0 1 100%;">
+            <h2>Special Features</h2>
+            <p>Our website offers a variety of special features to enhance your experience:</p>
+            <ul>
+                <li>User-friendly interface</li>
+                <li>Responsive design</li>
+                <li>High-quality content</li>
+                <li>Exclusive offers and discounts</li>
+                <li>24/7 customer support</li>
+            </ul>
+        </section>
+        <section id="privacy-policy" class="section" style="flex: 0 1 100%;">
+            <h2>Privacy Policy</h2>
+            <p>We are committed to protecting your privacy. This policy outlines the types of personal information we collect, how we use it, and the measures we take to ensure it is protected.</p>
+            <p>By using our website, you consent to the collection and use of your information as described in this policy. We may update this policy from time to time, so please review it periodically.</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Our Website. All rights reserved.</p>
+    </footer>
+</body>
+</html>

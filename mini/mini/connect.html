@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect with Profiles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user, .follower {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .user img, .follower img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .user button, .disconnect-button {
+            margin-left: auto;
+            padding: 8px 16px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .connect-button {
+            background-color: #007bff;
+        }
+
+        .disconnect-button {
+            background-color: #d9534f;
+        }
+
+        .user button:hover {
+            background-color: #0056b3;
+        }
+
+        .followers-list h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connect with Users</h1>
+
+        <!-- List of Users to Connect -->
+        <div class="user-list">
+            <!-- User Profiles are dynamically rendered using JavaScript -->
+        </div>
+
+        <!-- Followers List -->
+        <div class="followers-list">
+            <h2>Your Followers</h2>
+            <div id="followers"></div>
+        </div>
+    </div>
+
+    <script>
+        // User data with profile details
+        const users = [
+            { name: 'Alice', bio: 'Web Developer & Designer', image: 'https://via.placeholder.com/50?text=A' },
+            { name: 'Bob', bio: 'JavaScript Enthusiast', image: 'https://via.placeholder.com/50?text=B' },
+            { name: 'Charlie', bio: 'Front-End Developer', image: 'https://via.placeholder.com/50?text=C' }
+        ];
+
+        // Array to store connected followers
+        let followers = [];
+
+        // Function to render the list of users with connect buttons
+        function renderUserList() {
+            const userList = document.querySelector('.user-list');
+            userList.innerHTML = ''; // Clear current list
+
+            users.forEach(user => {
+                const userDiv = document.createElement('div');
+                userDiv.classList.add('user');
+
+                userDiv.innerHTML = `
+                    <img src="${user.image}" alt="${user.name}'s profile picture">
+                    <div>
+                        <p><strong>${user.name}</strong></p>
+                        <p>${user.bio}</p>
+                    </div>
+                    <button class="connect-button" onclick="connectUser('${user.name}')">Connect</button>
+                `;
+
+                userList.appendChild(userDiv);
+            });
+        }
+
+        // Function to connect and add a user to followers
+        function connectUser(username) {
+            const user = users.find(user => user.name === username);
+            if (user && !followers.includes(user)) {
+                followers.push(user);  // Add to followers list if not already added
+                updateFollowersList(); // Update the followers display
+            }
+        }
+
+        // Function to unconnect and remove a user from followers
+        function disconnectUser(username) {
+            followers = followers.filter(follower => follower.name !== username);
+            updateFollowersList(); // Update the followers display
+        }
+
+        // Function to update followers display
+        function updateFollowersList() {
+            const followersList = document.getElementById('followers');
+            followersList.innerHTML = ''; // Clear current list
+
+            followers.forEach(follower => {
+                const followerDiv = document.createElement('div');
+                followerDiv.classList.add('follower');
+
+                followerDiv.innerHTML = `
+                    <img src="${follower.image}" alt="${follower.name}'s profile picture">
+                    <div>
+                        <p><strong>${follower.name}</strong></p>
+                        <p>${follower.bio}</p>
+                    </div>
+                    <button class="disconnect-button" onclick="disconnectUser('${follower.name}')">disconnect</button>
+                `;
+
+                followersList.appendChild(followerDiv);
+            });
+        }
+
+        // Initialize the user list on page load
+        window.onload = renderUserList;
+    </script>
+</body>
+</html>

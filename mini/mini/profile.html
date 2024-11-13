@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Sports Hub Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e8f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .profile-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .profile-name,
+        .profile-bio,
+        .sports-skills {
+            margin: 20px 0 10px 0;
+        }
+
+        .profile-bio {
+            color: #666;
+        }
+
+        .sports-skills {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sports-skills li {
+            background-color: #007bff;
+            color: #fff;
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .contact-form {
+            margin-top: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background-color: #28a745;
+        }
+
+        .contact-form button:hover {
+            background-color: #218838;
+        }
+
+        .edit-button {
+            background-color: #ffc107;
+        }
+
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-image">
+            <img id="profilePicture" src="default-sports-profile.jpg" alt="Profile Picture">
+        </div>
+        <input type="file" id="profileImageInput" class="hidden">
+        <div class="profile-details">
+            <h1 class="profile-name" id="profileName">Arini A</h1>
+            <p class="profile-bio" id="profileBio">Sports Enthusiast, Runner, Team Player in Volleyball and Kabaddi.</p>
+            <button id="toggleInfo">View Achievements</button>
+            <p id="moreInfo" class="hidden">Gold and Silver Medalist at Anna University Zonal 2023.</p>
+            <h2>Sports Skills</h2>
+            <ul class="sports-skills" id="profileSkills">
+                <li>Running</li>
+                <li>Volleyball</li>
+                <li>Kabaddi</li>
+                <li>UI Design</li>
+                <li>Web Development</li>
+            </ul>
+            <div class="social-media">
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">GitHub</a>
+                <a href="#" target="_blank">Twitter</a>
+            </div>
+        </div>
+        <button class="edit-button" id="editProfile">Edit Profile</button>
+        <div class="contact-form">
+            <h2>Contact for Sports Collaboration</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('toggleInfo').addEventListener('click', function() {
+            const info = document.getElementById('moreInfo');
+            info.classList.toggle('hidden');
+        });
+
+        document.getElementById('profilePicture').addEventListener('click', function() {
+            document.getElementById('profileImageInput').click();
+        });
+
+        document.getElementById('profileImageInput').addEventListener('change', function() {
+            const file = this.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profilePicture').src = e.target.result;
+                localStorage.setItem('profilePicture', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('editProfile').addEventListener('click', function() {
+            const profileName = document.getElementById('profileName');
+            const profileBio = document.getElementById('profileBio');
+            const profileSkills = document.getElementById('profileSkills');
+
+            const newName = prompt('Enter new name:', profileName.textContent);
+            const newBio = prompt('Enter new bio:', profileBio.textContent);
+            const newSkills = prompt('Enter sports skills (comma separated):', Array.from(profileSkills.children).map(skill => skill.textContent).join(', '));
+
+            if (newName !== null) profileName.textContent = newName;
+            if (newBio !== null) profileBio.textContent = newBio;
+            if (newSkills !== null) {
+                profileSkills.innerHTML = '';
+                newSkills.split(',').forEach(skill => {
+                    const li = document.createElement('li');
+                    li.textContent = skill.trim();
+                    profileSkills.appendChild(li);
+                });
+            }
+
+            localStorage.setItem('profileName', profileName.textContent);
+            localStorage.setItem('profileBio', profileBio.textContent);
+            localStorage.setItem('profileSkills', profileSkills.innerHTML);
+        });
+
+        // Load saved data
+        window.onload = function() {
+            const savedName = localStorage.getItem('profileName');
+            const savedBio = localStorage.getItem('profileBio');
+            const savedSkills = localStorage.getItem('profileSkills');
+            const savedPicture = localStorage.getItem('profilePicture');
+
+            if (savedName) document.getElementById('profileName').textContent = savedName;
+            if (savedBio) document.getElementById('profileBio').textContent = savedBio;
+            if (savedSkills) document.getElementById('profileSkills').innerHTML = savedSkills;
+            if (savedPicture) document.getElementById('profilePicture').src = savedPicture;
+        };
+    </script>
+</body>
+</html>
